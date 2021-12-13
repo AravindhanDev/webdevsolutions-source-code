@@ -1,0 +1,64 @@
+<%- include("./partials/header.ejs") -%>
+
+<div class="container">
+	<h5 class="content-head"><b>Delete My Account </b></h5>
+	<form action="/delete" method="POST">
+		<input
+			type="email"
+			name="email"
+			id="email"
+			class="form-control"
+			placeholder="enter your email"
+			readonly
+			onfocus="this.removeAttribute('readonly');"
+		/>
+		<button class="btn btn-green btn-sm btn-block" id="submit">Delete</button>
+	</form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+
+<script>
+	$(document).ready(() => {
+		$("#submit").attr("type", "button");
+		$("#email").keypress((event) => {
+			var char = String.fromCharCode(event.which);
+			if (!/[a-z0-9@.]/.test(char)) {
+				event.preventDefault();
+			}
+		});
+
+		$("#submit").click(() => {
+			let client_email = $("#email").val();
+			if (client_email == "") {
+				Swal.fire("Oops", "Email cannot be empty", "warning");
+			} else {
+				Email.send({
+					SecureToken: "0dc0f9be-241e-46c9-9dd0-080ca88da56e",
+					To: client_email,
+					From: "aravindhandev37@gmail.com",
+					Subject: "Successfully delete your account",
+					Body: "Give us some feedback about your experience in webdev solutions and we've waiting for you",
+					Attachments: [
+						{
+							name: "illustration-sad-businesswoman-working-remotely_73637-666.jpg",
+							path: "https://image.freepik.com/free-vector/illustration-sad-businesswoman-working-remotely_73637-666.jpg"
+						}
+					]
+				}).then((message) => {
+					if (message == "OK") {
+						Swal.fire(
+							"Successfully Delete the Account",
+							"We've Send an email to you regarding account deletion",
+							"success"
+						);
+					}
+				});
+				$("#submit").attr("type", "submit");
+			}
+		});
+	});
+</script>
+
+<%- include("./partials/footer.ejs") -%>

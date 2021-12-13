@@ -1,0 +1,82 @@
+<%- include("./partials/header.ejs") -%>
+<div class="spinner">
+	<div class="rect1"></div>
+	<div class="rect2"></div>
+	<div class="rect3"></div>
+	<div class="rect4"></div>
+	<div class="rect5"></div>
+</div>
+<section class="myprojects" style="margin-top: 1rem">
+	<div class="container-fluid" style="display: none">
+		<h5 style="font-weight: bold">My Projects:</h5>
+		<button
+			class="btn btn-green btn-sm"
+			class="back"
+			style="position: absolute; right: 14px; top: 12px"
+			onclick="history.go(-1);"
+		>
+			back
+		</button>
+	</div>
+	<% proArr.map((arr) => { %>
+	<div class="container-single-project" style="display: none; display: none">
+		<div class="row">
+			<div class="col-lg-3 proj-head" style="margin-bottom: 1rem">
+				<h4 class="content-modal-head title"><%= arr.projName %></h4>
+				<strong>StartDate: </strong>
+				<p style="display: inline">
+					&nbsp;&nbsp;<%= arr.startMonth %> &nbsp;-&nbsp; <%= arr.startYear %>
+				</p>
+				<br /><br />
+				<strong>EndDate: </strong>
+				<p style="display: inline">
+					&nbsp;&nbsp; <%= arr.endMonth %> &nbsp;-&nbsp; <%= arr.endYear %>
+				</p>
+				<br /><br />
+				<strong>Associate with:</strong>
+				<p style="display: inline">&nbsp;&nbsp;<%= arr.associate %></p>
+				<br /><br />
+				<strong>Description: </strong>
+				<p style="display: inline">&nbsp;&nbsp;<%= arr.description %></p>
+			</div>
+			<div class="col-lg-9 proj-body flex-column">
+				<iframe src="<%= arr.projURL %>" class="iframe"></iframe>
+				<a href="<%= arr.projURL %>" target="_blank" class="view"
+					>view website&nbsp;&nbsp;<i
+						class="far fa-eye"
+						style="font-size: 0.8rem"
+					></i
+				></a>
+			</div>
+		</div>
+	</div>
+	<% }) %>
+
+	<div class="arrow-fixed ml-a">
+		<i class="fas fa-long-arrow-alt-up"></i>
+	</div>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+	$(document).ready(() => {
+		$(".arrow-fixed").fadeOut();
+		$(window).scroll(() => {
+			if ($(this).scrollTop() > 40) {
+				$(".arrow-fixed").fadeIn();
+			} else {
+				$(".arrow-fixed").fadeOut();
+			}
+		});
+
+		setTimeout(() => {
+			$(".spinner").css({ display: "none" });
+			$(".container-fluid").css({ display: "block" });
+			$(".container-single-project").css({ display: "block" });
+		}, 1000);
+
+		$(".arrow-fixed").click(() => {
+			$("html, body").animate({ scrollTop: 0 }, "slow");
+		});
+	});
+</script>
+<%- include('./partials/footer.ejs') -%>

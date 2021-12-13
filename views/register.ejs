@@ -1,0 +1,128 @@
+<%- include("./partials/header.ejs") -%>
+
+<div class="container">
+	<h2 class="head" style="font-weight: 700">
+		WebDev<span style="font-weight: 300"> Solutions</span>
+	</h2>
+	<br />
+	<form action="/" method="post">
+		<div class="form-group">
+			<label for="email">Email address</label>
+			<div class="input-group">
+				<input
+					type="text"
+					class="form-control no-right"
+					id="email"
+					placeholder="aravindhandev37@gmail.com"
+					name="username"
+					readonly
+					onfocus="this.removeAttribute('readonly');"
+					style="border-right: 0.1px solid #fff"
+				/>
+				<div class="input-group-append">
+					<span class="input-group-text"><i class="fas fa-envelope"></i></span>
+				</div>
+			</div>
+			<small class="form-text text-muted"
+				>We'll never share your email with anyone else.</small
+			>
+		</div>
+		<div class="form-group">
+			<label for="password">Password</label>
+			<div class="input-group">
+				<input
+					type="password"
+					name="password"
+					id="password"
+					placeholder="**********"
+					class="form-control no-right"
+					readonly
+					onfocus="this.removeAttribute('readonly');"
+					style="border-right: 0.1px solid #fff"
+				/>
+				<div class="input-group-append">
+					<span class="input-group-text"><i class="fas fa-lock"></i></span>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="password">Re-Enter Password</label>
+			<div class="input-group">
+				<input
+					type="password"
+					name="repassword"
+					id="repassword"
+					placeholder="**********"
+					class="form-control no-right"
+					readonly
+					onfocus="this.removeAttribute('readonly');"
+					style="border-right: 0.1px solid #fff"
+				/>
+				<div class="input-group-append">
+					<span class="input-group-text"><i class="fas fa-lock"></i></span>
+				</div>
+			</div>
+		</div>
+		<a href="/login">Already a registered client, Login</a>
+		<button type="button" id="submit" class="btn btn-green btn-block mt-4">
+			Register
+		</button>
+	</form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+
+<script>
+	$(document).ready(() => {
+		$("#submit").attr("type", "button");
+		$("#email").keypress((event) => {
+			var char = String.fromCharCode(event.which);
+			if (!/[a-zA-Z0-9@.]/.test(char)) {
+				event.preventDefault();
+			}
+		});
+
+		$("#submit").click(() => {
+			let client_email = $("#email").val();
+			let client_password = $("#password").val();
+			let client_repassword = $("#repassword").val();
+			let client_checkbox = $("#checkbox").prop("checked");
+			if (client_email == "") {
+				Swal.fire("Oops", "Email cannot be empty", "warning");
+			} else if (client_password == "") {
+				Swal.fire("Oops", "Password cannot be empty", "warning");
+			} else if (client_password.length < 8) {
+				Swal.fire("Oops", "Password must be greater than 8", "warning");
+			} else if (client_repassword !== client_password) {
+				Swal.fire("Oops", "It must matches with password", "warning");
+			} else {
+				Email.send({
+					SecureToken: "0dc0f9be-241e-46c9-9dd0-080ca88da56e",
+					To: client_email,
+					From: "aravindhandev37@gmail.com",
+					Subject: "Welcome to webdev solutions",
+					Body: "Thank you for subscribing webdev solutions, We reach you soon with awesome contents have a good day. :)",
+					Attachments: [
+						{
+							name: "subscribe-banner-f8386.png",
+							path: "https://www.peakscientific.com/media/ukcixai1/subscribe-banner-f8386.png"
+						}
+					]
+				}).then((message) => {
+					if (message == "OK") {
+						Swal.fire(
+							"Good Job!",
+							"We've Send an email to you regarding subscription",
+							"success"
+						);
+					}
+				});
+				$("#submit").attr("type", "submit");
+			}
+		});
+	});
+</script>
+
+<%- include("./partials/footer.ejs") -%>

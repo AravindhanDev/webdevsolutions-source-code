@@ -1,0 +1,82 @@
+<%- include("./partials/header.ejs") -%>
+<div class="spinner">
+	<div class="rect1"></div>
+	<div class="rect2"></div>
+	<div class="rect3"></div>
+	<div class="rect4"></div>
+	<div class="rect5"></div>
+</div>
+<section class="mycomments" style="margin-top: 1rem; display: none">
+	<div class="container-fluid" style="display: none">
+		<h5 style="font-weight: bold">My Projects:</h5>
+		<button
+			class="btn btn-green btn-sm"
+			class="back"
+			style="position: absolute; right: 14px; top: 12px"
+			onclick="history.go(-1);"
+		>
+			back
+		</button>
+	</div>
+	<div class="row">
+		<div
+			class="col-lg-1"
+			style="
+				display: flex;
+				justify-content: center;
+				align-items: flex-start;
+				margin-top: 2.9rem;
+			"
+		>
+			<div
+				class="icn"
+				style="
+					width: 2.3rem;
+					height: 2.3rem;
+					border-radius: 50%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					background-color: #ecb365;
+					color: #fff;
+				"
+			>
+				<i class="fas fa-exclamation"></i>
+			</div>
+		</div>
+		<div
+			class="col-lg-10 container-project"
+			style="font-size: 1.1rem; color: #888"
+		>
+			<b><i>Projects not found</i></b>
+		</div>
+	</div>
+
+	<div class="arrow-fixed ml-a">
+		<i class="fas fa-long-arrow-alt-up"></i>
+	</div>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+	$(document).ready(() => {
+		$(".arrow-fixed").fadeOut();
+		$(window).scroll(() => {
+			if ($(this).scrollTop() > 40) {
+				$(".arrow-fixed").fadeIn();
+			} else {
+				$(".arrow-fixed").fadeOut();
+			}
+		});
+
+		setTimeout(() => {
+			$(".spinner").css({ display: "none" });
+			$(".container-fluid").css({ display: "block" });
+			$(".mycomments").css({ display: "block" });
+		}, 1000);
+
+		$(".arrow-fixed").click(() => {
+			$("html, body").animate({ scrollTop: 0 }, "slow");
+		});
+	});
+</script>
+<%- include('./partials/footer.ejs') -%>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Data Tables</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"
+		/>
+	</head>
+	<body>
+		<table id="example" class="table table-striped">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Email</th>
+					<th>RegNo</th>
+					<th>RollNo</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>Aravindhan</th>
+					<th>
+						<a href="mailto:aravindhandev37@gmail.com" target="_blank"
+							>aravindhandev37@gmail.com</a
+						>
+					</th>
+					<th>19uca037</th>
+					<th>19us17637</th>
+				</tr>
+				<tr>
+					<th>Ashok</th>
+					<th>ashokdev43@gmail.com</th>
+					<th>19uca043</th>
+					<th>19us17643</th>
+				</tr>
+			</tbody>
+		</table>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+			crossorigin="anonymous"
+		></script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+		<script>
+			$(document).ready(function () {
+				$("#example").DataTable();
+			});
+		</script>
+	</body>
+</html>

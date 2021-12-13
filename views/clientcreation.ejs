@@ -1,0 +1,380 @@
+<%- include("./partials/header.ejs") -%>
+<div class="spinner">
+	<div class="rect1"></div>
+	<div class="rect2"></div>
+	<div class="rect3"></div>
+	<div class="rect4"></div>
+	<div class="rect5"></div>
+</div>
+<nav
+	class="navbar fixed-top navbar-expand-xl navbar-light"
+	style="display: none"
+>
+	<a class="navbar-brand" href="#">
+		<h4 class="head" style="font-weight: 700">
+			WebDev<span style="font-weight: 300"> Solutions</span>
+		</h4>
+	</a>
+	<button
+		class="navbar-toggler"
+		type="button"
+		data-toggle="collapse"
+		data-target="#navbarSupportedContent"
+		aria-controls="navbarSupportedContent"
+		aria-expanded="false"
+		aria-label="Toggle navigation"
+	>
+		<i class="fas fa-bars"></i>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item dropdown client">
+				<a
+					class="nav-link"
+					href="#"
+					id="navbarDropdown"
+					role="button"
+					data-toggle="dropdown"
+					aria-haspopup="true"
+					aria-expanded="false"
+				>
+					Projects&nbsp;
+					<i class="fas fa-chevron-down" style="font-size: 0.7rem"></i>
+				</a>
+				<div
+					class="dropdown-menu animate__animated client animate__flipInX"
+					aria-labelledby="navbarDropdown"
+				>
+					<a class="dropdown-item" href="/addproject"
+						><i class="far fa-plus-square" style="font-size: 0.9rem"></i>
+						&nbsp;&nbsp;Add Project Details</a
+					>
+					<a class="dropdown-item" href="/projectgo"
+						><i class="fas fa-location-arrow" style="font-size: 0.9rem"></i>
+						&nbsp;&nbsp;Go Project Section</a
+					>
+				</div>
+			</li>
+			<li class="nav-item dropdown client">
+				<a
+					class="nav-link"
+					href="#"
+					id="navbarDropdown"
+					role="button"
+					data-toggle="dropdown"
+					aria-haspopup="true"
+					aria-expanded="false"
+				>
+					<i class="fas fa-user-circle" style="font-size: 0.9rem"></i
+					>&nbsp;&nbsp;Clients&nbsp;
+					<i class="fas fa-chevron-down" style="font-size: 0.7rem"></i>
+				</a>
+				<div
+					class="dropdown-menu animate__animated client animate__flipInX"
+					aria-labelledby="navbarDropdown"
+				>
+					<a class="dropdown-item" href="/clientcreation"
+						><i class="far fa-plus-square" style="font-size: 0.9rem"></i>
+						&nbsp;&nbsp;Client's creation</a
+					>
+					<a class="dropdown-item" href="/clientsolution"
+						><i class="far fa-lightbulb" style="font-size: 0.9rem"></i
+						>&nbsp;&nbsp; Client's Solution</a
+					>
+					<a href="/newsletter" class="dropdown-item"
+						><i class="fas fa-chart-line" style="font-size: 0.9rem"></i>
+						&nbsp;&nbsp;Dashboard</a
+					>
+				</div>
+			</li>
+			<li class="nav-item dropdown">
+				<a
+					class="nav-link"
+					href="#"
+					id="navbarDropdown"
+					role="button"
+					data-toggle="dropdown"
+					aria-haspopup="true"
+					aria-expanded="false"
+				>
+					<i
+						class="fas fa-circle live"
+						style="color: #34be82; font-size: 0.4rem"
+					></i>
+					<i class="fas fa-bell"></i> &nbsp; Notification &nbsp;
+					<i class="fas fa-chevron-down" style="font-size: 0.7rem"></i>
+				</a>
+				<div
+					class="dropdown-menu animate__animated settings animate__flipInX"
+					aria-labelledby="navbarDropdown"
+				>
+					<a class="dropdown-item" href="/myprojects"
+						><i class="far fa-user" style="font-size: 0.9rem"></i>
+						&nbsp;&nbsp; <%= user %>
+					</a>
+					<a class="dropdown-item" href="/myprojects"
+						><i class="fas fa-swatchbook" style="font-size: 0.9rem"></i>
+						&nbsp;&nbsp; My Projects
+					</a>
+					<a class="dropdown-item" href="/mycomments"
+						><i class="far fa-comment-dots" style="font-size: 0.9rem"></i
+						>&nbsp;&nbsp; My Comments</a
+					>
+				</div>
+			</li>
+			<li class="nav-item dropdown settings">
+				<a
+					class="nav-link"
+					href="#"
+					id="navbarDropdown"
+					role="button"
+					data-toggle="dropdown"
+					aria-haspopup="true"
+					aria-expanded="false"
+				>
+					<i class="fas fa-cog"></i> &nbsp; Settings &nbsp;
+					<i class="fas fa-chevron-down" style="font-size: 0.7rem"></i>
+				</a>
+				<div
+					class="dropdown-menu animate__animated settings animate__flipInX"
+					aria-labelledby="navbarDropdown"
+				>
+					<button
+						class="dropdown-item"
+						type="button"
+						data-target="#feedback"
+						data-toggle="modal"
+					>
+						<i class="far fa-comment-dots" style="font-size: 0.9rem"></i
+						>&nbsp;&nbsp;Feedback
+					</button>
+					<a class="dropdown-item" href="/logout"
+						><i class="fas fa-power-off" style="font-size: 0.9rem"></i
+						>&nbsp;&nbsp;Logout</a
+					>
+					<form action="/delete" method="POST">
+						<button class="dropdown-item" type="submit" id="delete">
+							<i class="far fa-trash-alt"></i>&nbsp;&nbsp;Delete Account
+						</button>
+					</form>
+				</div>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link" id="date">Loading...</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+<div class="container-form" style="display: none">
+	<h5 class="content-head"><b>Client creation :</b></h5>
+	<form action="/clientcreation" method="POST">
+		<div class="row post">
+			<div class="col-md-6">
+				<label for="title" style="font-weight: 600"
+					>Title <span style="color: red">*</span>
+				</label>
+				<input
+					type="text"
+					placeholder="programming"
+					name="title"
+					id="title"
+					class="form-control"
+				/>
+			</div>
+			<div class="col-md-6">
+				<label for="url" style="font-weight: 600"
+					>Source URL <span style="color: red">*</span>
+				</label>
+				<input
+					type="text"
+					placeholder="https://www.solution.com"
+					name="url"
+					id="url"
+					class="form-control"
+				/>
+			</div>
+			<div class="col-md-12 form-group">
+				<label for="goal" style="font-weight: 600"
+					>Goal <span style="color: red">*</span>
+				</label>
+				<textarea
+					name="goal"
+					id="goal"
+					placeholder="To give solution about sorting arrays..."
+					class="form-control"
+					style="resize: none"
+				></textarea>
+			</div>
+			<div class="col-sm-12" style="text-align: right">
+				<button class="btn btn-green btn-sm" type="button" id="submit">
+					Submit
+				</button>
+			</div>
+		</div>
+	</form>
+	<div class="arrow-fixed ml-a">
+		<i class="fas fa-long-arrow-alt-up"></i>
+	</div>
+</div>
+<div
+	class="modal fade"
+	id="feedback"
+	tabindex="-1"
+	role="dialog"
+	aria-labelledby="exampleModalLabel"
+	aria-hidden="true"
+>
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header" style="border-bottom: 0; padding-bottom: 0">
+				<h5 class="content-modal-head">Get in touch with us</h5>
+				<button
+					type="button"
+					class="close"
+					data-dismiss="modal"
+					aria-label="Close"
+				>
+					<i class="far fa-times-circle"></i>
+				</button>
+			</div>
+			<div class="modal-body pt-0">
+				<form action="/feedback" method="POST">
+					<p class="text-muted">Feel free to send us the message</p>
+					<div class="form-group">
+						<input
+							type="text"
+							name="name"
+							placeholder="Your Name"
+							id="name"
+							class="form-control"
+						/>
+					</div>
+					<div class="form-group">
+						<textarea
+							name="review"
+							id="review"
+							placeholder="Give us a feedback"
+							class="form-control"
+						></textarea>
+					</div>
+					<div class="form-group">
+						<button button class="btn btn-green" id="submit1" type="button">
+							Send &nbsp;<i
+								class="fas fa-external-link-alt"
+								style="font-size: 0.9rem"
+							></i>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+	$(document).ready(() => {
+		$(".navbar-brand").click(() => {
+			location.href = "/newsletter";
+		});
+
+		$(".arrow-fixed").fadeOut();
+		$(".navbar").fadeIn();
+		$(window).scroll(() => {
+			if ($(this).scrollTop() > 40) {
+				$(".arrow-fixed").fadeIn();
+				$(".navbar").fadeOut();
+			} else {
+				$(".arrow-fixed").fadeOut();
+				$(".navbar").fadeIn();
+			}
+		});
+
+		setTimeout(() => {
+			$(".spinner").css({ display: "none" });
+			$(".navbar").css({ display: "flex" });
+			$(".container-form").css({ display: "block" });
+		}, 1000);
+
+		$("#name").keypress((event) => {
+			var char = String.fromCharCode(event.which);
+			if (!/[a-z ]/.test(char)) {
+				event.preventDefault();
+			}
+		});
+
+		setInterval(() => {
+			$("#date").html(
+				`<i class="far fa-clock"></i> &nbsp;${new Date().getDate()} ${new Date().toLocaleDateString(
+					"en-us",
+					{
+						month: "short"
+					}
+				)}, ${new Date().getFullYear()}  -  ${new Date().toLocaleTimeString()}`
+			);
+		}, 1000);
+
+		$(".arrow-fixed").click(() => {
+			$("html, body").animate({ scrollTop: 0 }, "slow");
+		});
+
+		$("#submit").attr("type", "button");
+		$("#title").keypress((event) => {
+			var char = String.fromCharCode(event.which);
+			if (!/[a-zA-Z0-9$ ]/.test(char)) {
+				event.preventDefault();
+			}
+		});
+
+		$("#submit1").attr("type", "button");
+
+		$("#submit1").click(() => {
+			let name = $("#name").val();
+			let review = $("#review").val();
+			if (name == "") {
+				Swal.fire("Oops", "Name cannot be empty", "warning");
+			} else if (review == "") {
+				Swal.fire("Oops", "Review cannot be empty", "warning");
+			} else {
+				Swal.fire("Hurrah!", "Successfully saved the feedback", "success");
+				$("#submit1").attr("type", "submit");
+			}
+		});
+
+		$("#submit").click(() => {
+			let title = $("#title").val();
+			let url = $("#url").val();
+			let goal = $("#goal").val();
+
+			if (title == "") {
+				Swal.fire("Oops", "Title cannot be empty", "warning");
+			} else if (url == "") {
+				Swal.fire("Oops", "Mention any url", "warning");
+			} else if (!validURL(url)) {
+				Swal.fire("Oops", "Not a valid url", "error");
+			} else if (goal == "") {
+				Swal.fire("Oops", "goal cannot be empty", "warning");
+			} else {
+				$("#submit").attr("type", "submit");
+			}
+
+			console.log(validURL(url));
+
+			function validURL(str) {
+				var pattern = new RegExp(
+					"^(https?:\\/\\/)?" + // protocol
+						"((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+						"((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+						"(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+						"(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+						"(\\#[-a-z\\d_]*)?$",
+					"i"
+				); // fragment locator
+				return !!pattern.test(str);
+			}
+		});
+	});
+</script>
+
+<%- include('./partials/footer.ejs') -%>

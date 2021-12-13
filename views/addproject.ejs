@@ -1,0 +1,598 @@
+<%- include("./partials/header.ejs") -%>
+<div class="spinner">
+	<div class="rect1"></div>
+	<div class="rect2"></div>
+	<div class="rect3"></div>
+	<div class="rect4"></div>
+	<div class="rect5"></div>
+</div>
+<nav
+	class="navbar fixed-top navbar-expand-xl navbar-light"
+	style="display: none"
+>
+	<a class="navbar-brand" href="#">
+		<h4 class="head" style="font-weight: 700">
+			WebDev<span style="font-weight: 300"> Solutions</span>
+		</h4>
+	</a>
+	<button
+		class="navbar-toggler"
+		type="button"
+		data-toggle="collapse"
+		data-target="#navbarSupportedContent"
+		aria-controls="navbarSupportedContent"
+		aria-expanded="false"
+		aria-label="Toggle navigation"
+	>
+		<i class="fas fa-bars"></i>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item dropdown client">
+				<a
+					class="nav-link"
+					href="#"
+					id="navbarDropdown"
+					role="button"
+					data-toggle="dropdown"
+					aria-haspopup="true"
+					aria-expanded="false"
+				>
+					Projects&nbsp;
+					<i class="fas fa-chevron-down" style="font-size: 0.7rem"></i>
+				</a>
+				<div
+					class="dropdown-menu animate__animated client animate__flipInX"
+					aria-labelledby="navbarDropdown"
+				>
+					<a class="dropdown-item" href="/addproject"
+						><i class="far fa-plus-square" style="font-size: 0.9rem"></i>
+						&nbsp;&nbsp;Add Project Details</a
+					>
+					<a class="dropdown-item" href="/projectgo"
+						><i class="fas fa-location-arrow" style="font-size: 0.9rem"></i>
+						&nbsp;&nbsp;Go Project Section</a
+					>
+				</div>
+			</li>
+			<li class="nav-item dropdown client">
+				<a
+					class="nav-link"
+					href="#"
+					id="navbarDropdown"
+					role="button"
+					data-toggle="dropdown"
+					aria-haspopup="true"
+					aria-expanded="false"
+				>
+					<i class="fas fa-user-circle" style="font-size: 0.9rem"></i
+					>&nbsp;&nbsp;Clients&nbsp;
+					<i class="fas fa-chevron-down" style="font-size: 0.7rem"></i>
+				</a>
+				<div
+					class="dropdown-menu animate__animated client animate__flipInX"
+					aria-labelledby="navbarDropdown"
+				>
+					<a class="dropdown-item" href="/clientcreation"
+						><i class="far fa-plus-square" style="font-size: 0.9rem"></i>
+						&nbsp;&nbsp;Client's creation</a
+					>
+					<a class="dropdown-item" href="/clientsolution"
+						><i class="far fa-lightbulb" style="font-size: 0.9rem"></i
+						>&nbsp;&nbsp; Client's Solution</a
+					>
+					<a href="/newsletter" class="dropdown-item"
+						><i class="fas fa-chart-line" style="font-size: 0.9rem"></i>
+						&nbsp;&nbsp;Dashboard</a
+					>
+				</div>
+			</li>
+			<li class="nav-item dropdown">
+				<a
+					class="nav-link"
+					href="#"
+					id="navbarDropdown"
+					role="button"
+					data-toggle="dropdown"
+					aria-haspopup="true"
+					aria-expanded="false"
+				>
+					<i
+						class="fas fa-circle live"
+						style="color: #34be82; font-size: 0.4rem"
+					></i>
+					<i class="fas fa-bell"></i> &nbsp; Notification &nbsp;
+					<i class="fas fa-chevron-down" style="font-size: 0.7rem"></i>
+				</a>
+				<div
+					class="dropdown-menu animate__animated settings animate__flipInX"
+					aria-labelledby="navbarDropdown"
+				>
+					<a class="dropdown-item" href="/myprojects"
+						><i class="far fa-user" style="font-size: 0.9rem"></i>
+						&nbsp;&nbsp; <%= user %>
+					</a>
+					<a class="dropdown-item" href="/myprojects"
+						><i class="fas fa-swatchbook" style="font-size: 0.9rem"></i>
+						&nbsp;&nbsp; My Projects
+					</a>
+					<a class="dropdown-item" href="/mycomments"
+						><i class="far fa-comment-dots" style="font-size: 0.9rem"></i
+						>&nbsp;&nbsp; My Comments</a
+					>
+				</div>
+			</li>
+			<li class="nav-item dropdown settings">
+				<a
+					class="nav-link"
+					href="#"
+					id="navbarDropdown"
+					role="button"
+					data-toggle="dropdown"
+					aria-haspopup="true"
+					aria-expanded="false"
+				>
+					<i class="fas fa-cog"></i> &nbsp; Settings &nbsp;
+					<i class="fas fa-chevron-down" style="font-size: 0.7rem"></i>
+				</a>
+				<div
+					class="dropdown-menu animate__animated settings animate__flipInX"
+					aria-labelledby="navbarDropdown"
+				>
+					<button
+						class="dropdown-item"
+						type="button"
+						data-target="#feedback"
+						data-toggle="modal"
+					>
+						<i class="far fa-comment-dots" style="font-size: 0.9rem"></i
+						>&nbsp;&nbsp;Feedback
+					</button>
+					<a class="dropdown-item" href="/logout"
+						><i class="fas fa-power-off" style="font-size: 0.9rem"></i
+						>&nbsp;&nbsp;Logout</a
+					>
+					<form action="/delete" method="POST">
+						<button class="dropdown-item" type="submit" id="delete">
+							<i class="far fa-trash-alt"></i>&nbsp;&nbsp;Delete Account
+						</button>
+					</form>
+				</div>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link" id="date">Loading...</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+<div class="container-form" style="display: none">
+	<h5 class="content-head"><b>Project Creation :</b></h5>
+	<form action="/addproject" method="POST">
+		<div class="row post">
+			<div class="col-md-12">
+				<label for="projName" style="font-weight: 600"
+					>Project Name <span style="color: red">*</span>
+				</label>
+				<input
+					type="text"
+					placeholder="Daily Journal"
+					name="projName"
+					id="projName"
+					class="form-control"
+				/>
+			</div>
+			<div class="col-md-6 form-group">
+				<label for="startMonth" style="font-weight: 600"
+					>Start Date <span style="color: red">*</span>
+				</label>
+				<select name="startMonth" id="startMonth" class="form-control">
+					<option value="" disabled selected>Month</option>
+					<option>January</option>
+					<option>February</option>
+					<option>March</option>
+					<option>April</option>
+					<option>May</option>
+					<option>June</option>
+					<option>July</option>
+					<option>August</option>
+					<option>September</option>
+					<option>October</option>
+					<option>November</option>
+					<option>December</option>
+				</select>
+			</div>
+			<div class="col-md-6 form-group">
+				<label
+					for="startYear"
+					id="start"
+					style="font-weight: 600; visibility: hidden"
+					>Empty</label
+				>
+				<select name="startYear" id="startYear" class="form-control">
+					<option value="" selected disabled>Year</option>
+					<option>2021</option>
+					<option>2020</option>
+					<option>2019</option>
+					<option>2018</option>
+					<option>2017</option>
+					<option>2016</option>
+					<option>2015</option>
+					<option>2014</option>
+					<option>2013</option>
+					<option>2012</option>
+					<option>2011</option>
+					<option>2010</option>
+					<option>2009</option>
+					<option>2008</option>
+					<option>2007</option>
+					<option>2006</option>
+					<option>2005</option>
+					<option>2004</option>
+					<option>2003</option>
+					<option>2002</option>
+					<option>2001</option>
+					<option>2000</option>
+					<option>1999</option>
+					<option>1998</option>
+					<option>1997</option>
+					<option>1996</option>
+					<option>1995</option>
+					<option>1994</option>
+					<option>1993</option>
+					<option>1992</option>
+					<option>1991</option>
+					<option>1990</option>
+					<option>1989</option>
+					<option>1988</option>
+					<option>1987</option>
+					<option>1986</option>
+					<option>1985</option>
+					<option>1984</option>
+					<option>1983</option>
+					<option>1982</option>
+					<option>1981</option>
+					<option>1980</option>
+					<option>1979</option>
+					<option>1978</option>
+					<option>1977</option>
+					<option>1976</option>
+					<option>1975</option>
+					<option>1974</option>
+					<option>1973</option>
+					<option>1972</option>
+					<option>1971</option>
+					<option>1970</option>
+				</select>
+			</div>
+			<div class="col-md-6 form-group">
+				<label for="endMonth" style="font-weight: 600"
+					>End Date <span style="color: red">*</span>
+				</label>
+				<select name="endMonth" id="endMonth" class="form-control">
+					<option value="" disabled selected>Month</option>
+					<option>January</option>
+					<option>February</option>
+					<option>March</option>
+					<option>April</option>
+					<option>May</option>
+					<option>June</option>
+					<option>July</option>
+					<option>August</option>
+					<option>September</option>
+					<option>October</option>
+					<option>November</option>
+					<option>December</option>
+				</select>
+			</div>
+			<div class="col-md-6 form-group">
+				<label
+					for="endYear"
+					id="end"
+					style="font-weight: 600; visibility: hidden"
+					>Empty
+				</label>
+				<select name="endYear" id="endYear" class="form-control">
+					<option value="" disabled selected>Year</option>
+					<option>2021</option>
+					<option>2020</option>
+					<option>2019</option>
+					<option>2018</option>
+					<option>2017</option>
+					<option>2016</option>
+					<option>2015</option>
+					<option>2014</option>
+					<option>2013</option>
+					<option>2012</option>
+					<option>2011</option>
+					<option>2010</option>
+					<option>2009</option>
+					<option>2008</option>
+					<option>2007</option>
+					<option>2006</option>
+					<option>2005</option>
+					<option>2004</option>
+					<option>2003</option>
+					<option>2002</option>
+					<option>2001</option>
+					<option>2000</option>
+					<option>1999</option>
+					<option>1998</option>
+					<option>1997</option>
+					<option>1996</option>
+					<option>1995</option>
+					<option>1994</option>
+					<option>1993</option>
+					<option>1992</option>
+					<option>1991</option>
+					<option>1990</option>
+					<option>1989</option>
+					<option>1988</option>
+					<option>1987</option>
+					<option>1986</option>
+					<option>1985</option>
+					<option>1984</option>
+					<option>1983</option>
+					<option>1982</option>
+					<option>1981</option>
+					<option>1980</option>
+					<option>1979</option>
+					<option>1978</option>
+					<option>1977</option>
+					<option>1976</option>
+					<option>1975</option>
+					<option>1974</option>
+					<option>1973</option>
+					<option>1972</option>
+					<option>1971</option>
+					<option>1970</option>
+				</select>
+			</div>
+			<div class="col-md-12 form-group">
+				<label for="associate" style="font-weight: 600"
+					>Associate with <span style="color: red">*</span>
+				</label>
+				<br />
+				<label for="associate" id="label-associate" style="font-weight: 500"
+					>You are a creator. Add others that contribute to the project
+				</label>
+				<select name="associate" id="associate" class="form-control">
+					<option value="" selected disabled>Please select</option>
+					<option>CollegeMate</option>
+					<option>Co-Worker</option>
+					<option>Solo</option>
+					<option>Others</option>
+				</select>
+			</div>
+			<div class="col-md-12">
+				<label for="url" style="font-weight: 600"
+					>Project URL <span style="color: red">*</span>
+				</label>
+				<input
+					type="text"
+					class="form-control"
+					placeholder="https://work*****"
+					name="url"
+					id="url"
+				/>
+			</div>
+			<div class="col-md-12 form-group">
+				<label for="description" style="font-weight: 600"
+					>Description <span style="color: red">*</span>
+				</label>
+				<textarea
+					name="description"
+					id="description"
+					placeholder="description about your project"
+					class="form-control"
+				></textarea>
+			</div>
+			<div class="col-sm-12 form-group" style="text-align: right" type="button">
+				<button class="btn btn-green btn-sm" type="button" id="submit">
+					Submit
+				</button>
+			</div>
+		</div>
+	</form>
+	<div class="arrow-fixed ml-a">
+		<i class="fas fa-long-arrow-alt-up"></i>
+	</div>
+</div>
+<div
+	class="modal fade"
+	id="feedback"
+	tabindex="-1"
+	role="dialog"
+	aria-labelledby="exampleModalLabel"
+	aria-hidden="true"
+>
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header" style="border-bottom: 0; padding-bottom: 0">
+				<h5 class="content-modal-head">Get in touch with us</h5>
+				<button
+					type="button"
+					class="close"
+					data-dismiss="modal"
+					aria-label="Close"
+				>
+					<i class="far fa-times-circle"></i>
+				</button>
+			</div>
+			<div class="modal-body pt-0">
+				<form action="/feedback" method="POST">
+					<p class="text-muted">Feel free to send us the message</p>
+					<div class="form-group">
+						<input
+							type="text"
+							name="name"
+							placeholder="Your Name"
+							id="name"
+							class="form-control"
+						/>
+					</div>
+					<div class="form-group">
+						<textarea
+							name="review"
+							id="review"
+							placeholder="Give us a feedback"
+							class="form-control"
+						></textarea>
+					</div>
+					<div class="form-group">
+						<button button class="btn btn-green" id="submit1" type="button">
+							Send &nbsp;<i
+								class="fas fa-external-link-alt"
+								style="font-size: 0.9rem"
+							></i>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+	$(document).ready(() => {
+		$(".navbar-brand").click(() => {
+			location.href = "/newsletter";
+		});
+
+		setTimeout(() => {
+			$(".spinner").css({ display: "none" });
+			$(".navbar").css({ display: "flex" });
+			$(".container-form").css({ display: "block" });
+		}, 1000);
+
+		$("#name").keypress((event) => {
+			var char = String.fromCharCode(event.which);
+			if (!/[a-z ]/.test(char)) {
+				event.preventDefault();
+			}
+		});
+
+		$("#projName").keypress((event) => {
+			var char = String.fromCharCode(event.which);
+			if (!/[a-zA-Z0-9 ]/.test(char)) {
+				event.preventDefault();
+			}
+		});
+
+		let projName = $("#projName").val();
+		let startMonth = $("#startMonth").val();
+		let startYear = $("#startYear").val();
+		let endMonth = $("#endMonth").val();
+		let endYear = $("#endYear").val();
+		let associate = $("#associate").val();
+		let url = $("#url").val();
+		let description = $("#description").val();
+		let StartDate = new Date(`${startMonth} ${startYear}`).getMonth();
+		let EndDate = new Date(`${endMonth} ${endYear}`).getMonth();
+
+		setInterval(() => {
+			$("#date").html(
+				`<i class="far fa-clock"></i> &nbsp;${new Date().getDate()} ${new Date().toLocaleDateString(
+					"en-us",
+					{
+						month: "short"
+					}
+				)}, ${new Date().getFullYear()}  -  ${new Date().toLocaleTimeString()}`
+			);
+		}, 1000);
+
+		$(".arrow-fixed").fadeOut();
+		$(".navbar").fadeIn();
+		$(window).scroll(() => {
+			if ($(this).scrollTop() > 40) {
+				$(".arrow-fixed").fadeIn();
+				$(".navbar").fadeOut();
+			} else {
+				$(".arrow-fixed").fadeOut();
+				$(".navbar").fadeIn();
+			}
+		});
+
+		$(".arrow-fixed").click(() => {
+			$("html, body").animate({ scrollTop: 0 }, "slow");
+		});
+
+		$("#submit1").attr("type", "button");
+
+		$("#submit1").click(() => {
+			let name = $("#name").val();
+			let review = $("#review").val();
+			if (name == "") {
+				Swal.fire("Oops", "Name cannot be empty", "warning");
+			} else if (review == "") {
+				Swal.fire("Oops", "Review cannot be empty", "warning");
+			} else {
+				Swal.fire("Hurrah!", "Successfully saved the feedback", "success");
+				$("#submit1").attr("type", "submit");
+			}
+		});
+
+		$("#submit").attr("type", "button");
+
+		$("#submit").click(() => {
+			let projName = $("#projName").val();
+			let startMonth = $("#startMonth").val();
+			let startYear = $("#startYear").val();
+			let endMonth = $("#endMonth").val();
+			let endYear = $("#endYear").val();
+			let associate = $("#associate").val();
+			let url = $("#url").val();
+			let description = $("#description").val();
+
+			if (projName == "") {
+				Swal.fire("Oops", "Project name cannot be empty", "warning");
+			} else if (startMonth == null) {
+				Swal.fire("Oops", "Please choose start month", "warning");
+			} else if (startYear == null) {
+				Swal.fire("Oops", "Please choose start year", "warning");
+			} else if (endMonth == null) {
+				Swal.fire("Oops", "Please choose end month", "warning");
+			} else if (endYear == null) {
+				Swal.fire("Oops", "Please choose end year", "warning");
+			} else if (startYear > endYear) {
+				Swal.fire(
+					"Oops",
+					"End Date can't be earlier than start date",
+					"warning"
+				);
+			} else if (startYear == endYear && StartDate > EndDate) {
+				Swal.fire(
+					"Oops",
+					"End Date can't be earlier than start date",
+					"warning"
+				);
+			} else if (associate == null) {
+				Swal.fire("Oops", "Associate cannot be empty", "warning");
+			} else if (url == "") {
+				Swal.fire("Oops", "URL cannot be empty", "warning");
+			} else if (!validURL(url)) {
+				Swal.fire("Oops", "Please enter valid URL", "warning");
+			} else if (description == "") {
+				Swal.fire("Oops", "Description cannot be empty", "warning");
+			} else {
+				$("#submit").attr("type", "submit");
+			}
+
+			function validURL(str) {
+				var pattern = new RegExp(
+					"^(https?:\\/\\/)?" + // protocol
+						"((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+						"((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+						"(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+						"(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+						"(\\#[-a-z\\d_]*)?$",
+					"i"
+				);
+				return !!pattern.test(str);
+			}
+		});
+	});
+</script>
+
+<%- include('./partials/footer.ejs') -%>
